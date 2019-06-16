@@ -1,12 +1,15 @@
 <?php
 class Database
-{
-    private static $dbName = 'permainan' ;
-    private static $dbHost = 'mygamesweb.database.windows.net' ;
-    private static $dbUsername = 'alexwibowo';
-    private static $dbUserPassword = '08Maret2017';
-     
+{    
     private static $cont  = null;
+    
+    private static $serverName = "mygamesweb.database.windows.net"; // update me
+    
+    private static $connectionOptions = array(
+        "Database" => "permainan", // update me
+        "Uid" => "alexwibowo", // update me
+        "PWD" => "08Maret2017" // update me
+    );
      
     public function __construct() {
         die('Init function is not allowed');
@@ -18,10 +21,10 @@ class Database
        if ( null == self::$cont )
        {     
             try {
-                self::$cont = new PDO("sqlsrv:server = tcp:mygamesweb.database.windows.net,1433; Database = permainan", "alexwibowo", "08Maret2017");
+                self::$cont = sqlsrv_connect($serverName, $connectionOptions);
                 //$cont->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
-            catch (PDOException $e) {
+            catch (Exception $e) {
                 print("Error connecting to SQL Server.");
                 die(print_r($e));
             }
