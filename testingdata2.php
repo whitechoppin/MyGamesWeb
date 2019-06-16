@@ -57,6 +57,13 @@ if (isset($_GET['action']))
         else  
             {  
             echo "Registration complete.</br>";  
+            $rowsAffected = sqlsrv_rows_affected($stmt);
+            if ($stmt == FALSE or $rowsAffected == FALSE)
+                die(FormatErrors(sqlsrv_errors()));
+            echo ($rowsAffected. " row(s) inserted: " . PHP_EOL);
+
+            sqlsrv_free_stmt($stmt);
+      
             }  
         }  
     }  
