@@ -70,7 +70,7 @@ if (isset($_GET['action']))
             echo ("Reading data from table" . PHP_EOL);
             if ($getResults == FALSE)
                 die(FormatErrors(sqlsrv_errors()));
-            while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
+            while ($row = sqlsrv_fetch_array($getResults)) {
                 echo ($row['id'] . " " . $row['nama'] . " " . $row['genre'] . PHP_EOL);
 
             }
