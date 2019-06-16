@@ -13,7 +13,7 @@
         
     //Insert Query
     echo ("Inserting a new row into table" . PHP_EOL);
-    $tsql= "INSERT INTO permainan.game (nama, genre, negara, produser) VALUES (1,1,1,1);";
+    $tsql= "INSERT INTO permainan.game (nama, genre, negara, produser) VALUES (?,?,?,?);";
     $params = array('Dynasti Warrior','Beat em all','china','koei');
     $getResults= sqlsrv_query($conn, $tsql, $params);
     $rowsAffected = sqlsrv_rows_affected($getResults);
