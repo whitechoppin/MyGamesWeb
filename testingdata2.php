@@ -65,7 +65,7 @@ if (isset($_GET['action']))
             sqlsrv_free_stmt($stmt);
             
             //Read Query
-            $tsql= "SELECT * FROM permainan.game;";
+            $tsql= "SELECT * FROM game;";
             $getResults= sqlsrv_query($conn, $tsql);
             echo ("Reading data from table" . PHP_EOL);
             if ($getResults == FALSE)
