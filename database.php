@@ -18,8 +18,8 @@ class Database
        if ( null == self::$cont )
        {     
             try {
-                $conn = new PDO("sqlsrv:server = tcp:mygamesweb.database.windows.net,1433; Database = permainan", "alexwibowo", "08Maret2017");
-                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                self::$cont = new PDO("sqlsrv:server = tcp:mygamesweb.database.windows.net,1433; Database = permainan", "alexwibowo", "08Maret2017");
+                //$cont->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
             catch (PDOException $e) {
                 print("Error connecting to SQL Server.");
