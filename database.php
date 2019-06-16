@@ -21,7 +21,7 @@ class Database
        if ( null == self::$cont )
        {     
             try {
-                self::$cont = sqlsrv_connect($serverName, $connectionOptions);
+                self::$cont = sqlsrv_connect(self::$serverName, self::$connectionOptions);
                 //$cont->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
             catch (Exception $e) {
