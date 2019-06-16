@@ -11,7 +11,7 @@
     if($conn){
         echo "Connected!"
     } else {
-     FatalError("Failed to connect...");
+     echo "Fail!"
     }
     //Insert Query
 //     echo ("Inserting a new row into table" . PHP_EOL);
