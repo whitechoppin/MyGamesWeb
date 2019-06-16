@@ -4,15 +4,13 @@
     $connectionOptions = array(
         "Database" => "permainan", // update me
         "Uid" => "alexwibowo", // update me
-        "PWD" => "08Maret2017" // update me
+        "PWD" => "08Maret2019" // update me
     );
     //Establishes the connection
     $conn = sqlsrv_connect($serverName, $connectionOptions);
     if($conn){
         echo "Connected!"
-    } else {
-     echo "Fail!"
-    }
+    
     //Insert Query
 //     echo ("Inserting a new row into table" . PHP_EOL);
 //     $tsql= "INSERT INTO permainan.game (nama, genre, negara, produser) VALUES (?,?,?,?);";
