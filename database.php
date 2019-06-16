@@ -17,12 +17,14 @@ class Database
        // One connection through whole application
        if ( null == self::$cont )
        {     
-        try {
-              self::$cont = new PDO('sqlsrv:server=tcp:mygamesweb.database.windows.net,1433;Database=permainan','alexwibowo','08Maret2017');
-              self::$cont ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          } catch (PDOException $e) {
-            die($e->getMessage()); 
-          }
+            try {
+                $conn = new PDO("sqlsrv:server = tcp:mygamesweb.database.windows.net,1433; Database = permainan", "alexwibowo", "08Maret2017");
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            }
+            catch (PDOException $e) {
+                print("Error connecting to SQL Server.");
+                die(print_r($e));
+            }
        }
        return self::$cont;
     }
