@@ -23,4 +23,17 @@
 
     sqlsrv_free_stmt($getResults);
 
+    function FormatErrors( $errors )
+    {
+        /* Display errors. */
+        echo "Error information: ";
+
+        foreach ( $errors as $error )
+        {
+            echo "SQLSTATE: ".$error['SQLSTATE']."";
+            echo "Code: ".$error['code']."";
+            echo "Message: ".$error['message']."";
+        }
+    }
+
 ?>
