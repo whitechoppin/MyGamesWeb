@@ -58,7 +58,7 @@
          
         // update data
         if ($valid) {
-            $insertSql = "INSERT INTO game (nama,genre,negara,produser) VALUES (?,?,?,?)";  
+            $insertSql = "INSERT INTO game (nama,genre,negara,produser) VALUES (?,?,?,?) WHERE id = ?";  
             $params = array($nama,$genre,$negara,$produser,$id);  
             $stmt = sqlsrv_query($conn, $insertSql, $params);  
             $conn = null;
