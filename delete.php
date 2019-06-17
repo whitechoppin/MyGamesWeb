@@ -19,7 +19,7 @@
                             $id = $_REQUEST['id'];
                         }
                     ?>
-                    <form class="form-horizontal" action="?action=delete" method="post">
+                    <form class="form-horizontal" action="?action=delete" method="post" enctype="multipart/form-data">
                       <input type="hidden" name="id" value="<?php echo $id;?>"/>
                       <p class="alert alert-error">Are you sure to delete ?</p>
                       <div class="form-actions">
@@ -54,7 +54,7 @@
     {  
         if ($_GET['action'] == 'delete')  
         {  
-            $sql = "DELETE FROM game  WHERE id = ?";
+            $sql = "DELETE FROM game WHERE id = ?";
             $params = array($id);  
             $stmt = sqlsrv_query($conn, $sql, $params);  
             if ($stmt)  
