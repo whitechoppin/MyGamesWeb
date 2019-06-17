@@ -15,7 +15,7 @@
                         <h3>Create a Customer</h3>
                     </div>
              
-                    <form class="form-horizontal" action="create.php" method="post">
+                    <form class="form-horizontal" method="post" action="?action=add" enctype="multipart/form-data" >  
                         <div class="control-group <?php echo !empty($namaError)?'error':'';?>">
                             <label class="control-label">Nama</label>
                             <div class="controls">
@@ -61,72 +61,75 @@
                  
     </div> 
     <?php
+    $serverName = "tcp:mygamesweb.database.windows.net,1433";
+    $connectionOptions = array(
+        "Database" => "permainan", // update me
+        "Uid" => "alexwibowo", // update me
+        "PWD" => "08Maret2017" // update me
+    ); 
+    $conn = sqlsrv_connect($serverName, $connectionOptions);  
      
-     $serverName = "tcp:mygamesweb.database.windows.net,1433";
-     $connectionOptions = array(
-         "Database" => "permainan", // update me
-         "Uid" => "alexwibowo", // update me
-         "PWD" => "08Maret2017" // update me
-     ); 
-     $conn = sqlsrv_connect($serverName, $connectionOptions);  
-     
-     if ($conn === false)  
-     {  
-         die(print_r(sqlsrv_errors() , true));  
-     } 
+    if ($conn === false)  
+    {  
+        die(print_r(sqlsrv_errors() , true));  
+    } 
  
-    if ( !empty($_POST)) 
-    {
-        $namaError = null;
-        $genreError = null;
-        $negaraError = null;
-        $produserError = null;
-         
-        $nama = $_POST['nama'];
-        $genre = $_POST['genre'];
-        $negara = $_POST['negara'];
-        $produser = $_POST['produser'];
-         
-        // validasi inputan
-        $valid = true;
-        if (empty($nama)) {
-            $namaError = 'Tolong isi nama';
-            $valid = false;
-        }
-         
-        if (empty($genre)) {
-            $genreError = 'Tolong isi genre';
-            $valid = false;
-        }
-         
-        if (empty($negara)) {
-            $negaraError = 'tolong isi negara';
-            $valid = false;
-        }
+    if (isset($_GET['action']))  
+    {  
+        if ($_GET['action'] == 'add')  
+        {  
+            if ( !empty($_POST)) 
+            {
+                $namaError = null;
+                $genreError = null;
+                $negaraError = null;
+                $produserError = null;
+                
+                $nama = $_POST['nama'];
+                $genre = $_POST['genre'];
+                $negara = $_POST['negara'];
+                $produser = $_POST['produser'];
+                
+                // validasi inputan
+                $valid = true;
+                if (empty($nama)) {
+                    $namaError = 'Tolong isi nama';
+                    $valid = false;
+                }
+                
+                if (empty($genre)) {
+                    $genreError = 'Tolong isi genre';
+                    $valid = false;
+                }
+                
+                if (empty($negara)) {
+                    $negaraError = 'tolong isi negara';
+                    $valid = false;
+                }
 
-        if (empty($produser)) {
-            $produserError = 'tolong isi produser';
-            $valid = false;
-        }
-         
-        // isi data
-        if ($valid) 
-        {
-            $sql = "INSERT INTO game (nama,genre,negara,produser) VALUES (?, ?, ? ,?)";  
-            $params = array($nama,$genre,$negara,$produser));  
-            $stmt = sqlsrv_query($conn, $sql, $params);  
-            if ($stmt)  
-            {  
-                /*Handle the case of a duplicte e-mail address.*/  
-                echo "Registration complete.</br>";  
-                $rowsAffected = sqlsrv_rows_affected($stmt);
-                if ($stmt == FALSE or $rowsAffected == FALSE)
-                    die(FormatErrors(sqlsrv_errors()));
-                echo ($rowsAffected. " row(s) inserted: " . PHP_EOL);
-    
-                sqlsrv_free_stmt($stmt);
-            }  
-            header("Location: index.php");
+                if (empty($produser)) {
+                    $produserError = 'tolong isi produser';
+                    $valid = false;
+                }
+                
+                // isi data
+                if ($valid) 
+                {
+                    $sql = "INSERT INTO game (nama,genre,negara,produser) VALUES (?, ?, ? ,?)";  
+                    $params = array($nama,$genre,$negara,$produser));  
+                    $stmt = sqlsrv_query($conn, $sql, $params);  
+                    if ($stmt)  
+                    {  
+                        /*Handle the case of a duplicte e-mail address.*/  
+                        echo "Registration complete.</br>";  
+                        $rowsAffected = sqlsrv_rows_affected($stmt);
+                        echo ($rowsAffected. " row(s) inserted: " . PHP_EOL);
+            
+                        sqlsrv_free_stmt($stmt);
+                    }  
+                    header("Location: index.php");
+                }
+            }
         }
     }
 ?>
