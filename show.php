@@ -26,6 +26,10 @@
                     {  
                         die(print_r(sqlsrv_errors() , true));  
                     }  
+                    $id = null;
+                    if ( !empty($_GET['id'])) {
+                        $id = $_REQUEST['id'];
+                    }
                     
                     $sql = "SELECT * FROM game where id = ?";
                     $params = array($id));  
@@ -46,9 +50,42 @@
                     }
                     $conn = null;  
                     ?>
+                    <!-- <div class="form-horizontal" >
+                        <div class="control-group">
+                            <label class="control-label">Nama</label>
+                            <div class="controls">
+                                <label class="checkbox">
+                                    <?php echo $data['nama'];?>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Genre</label>
+                            <div class="controls">
+                                <label class="checkbox">
+                                    <?php echo $data['genre'];?>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Negara</label>
+                            <div class="controls">
+                                <label class="checkbox">
+                                    <?php echo $data['negara'];?>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Produser</label>
+                            <div class="controls">
+                                <label class="checkbox">
+                                    <?php echo $data['produser'];?>
+                                </label>
+                            </div>
+                        </div>
                         <div class="form-actions">
                             <a class="btn" href="index.php">Back</a>
-                        </div>
+                        </div> -->
                      
                       
                     </div>
