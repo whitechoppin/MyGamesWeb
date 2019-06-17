@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -13,8 +13,6 @@
                     <div class="row">
                         <h3>Lihat Data Permainan</h3>
                     </div>
-
-
                     <?php
                     $serverName = "tcp:mygamesweb.database.windows.net,1433";
                     $connectionOptions = array(
@@ -31,12 +29,24 @@
                     
                     $sql = "SELECT * FROM permainan where id = ?";
                     $params = array($nama,$genre,$negara,$produser));  
-                    $data = sqlsrv_query($conn, $sql, $params); 
+                    $getResults= sqlsrv_query($conn, $sql, $params); 
+                    if ($getResults)
+                    {
+                        while ($row = sqlsrv_fetch_array($getResults)) {
+                            echo '<tr>';
+                            echo '<td>'. $row['id'] . '</td>';
+                            echo '<td><a class="" href="show.php?id='.$row['id'].'">'. $row['nama'] . '</a></td>';
+                            echo '<td width=250>';
+                            echo '<a class="btn btn-success" href="update.php?id='.$row['id'].'">Update</a>';
+                            echo ' ';
+                            echo '<a class="btn btn-danger" href="delete.php?id='.$row['id'].'">Delete</a>';
+                            echo '</td>';
+                            echo '</tr>';
+                        }
+                    }
                     $conn = null;  
                     ?>
-
-
-                    <div class="form-horizontal" >
+                    <!-- <div class="form-horizontal" >
                         <div class="control-group">
                             <label class="control-label">Nama</label>
                             <div class="controls">
@@ -68,7 +78,7 @@
                                     <?php echo $data['produser'];?>
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-actions">
                             <a class="btn" href="index.php">Back</a>
                         </div>
