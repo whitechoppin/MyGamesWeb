@@ -39,6 +39,11 @@
     {  
         die(print_r(sqlsrv_errors() , true));  
     } 
+    
+    $id = null;
+    if ( !empty($_GET['id'])) {
+        $id = $_REQUEST['id'];
+    }
  
     if (isset($_GET['action']))  
     {  
