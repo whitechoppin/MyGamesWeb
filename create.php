@@ -67,6 +67,7 @@
     
                 sqlsrv_free_stmt($stmt);
             }  
+            $conn = null;
             header("Location: index.php");
         }
     }
