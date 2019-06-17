@@ -1,7 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-    require 'database.php';
+    $serverName = "tcp:mygamesweb.database.windows.net,1433";
+    $connectionOptions = array(
+        "Database" => "permainan", // update me
+        "Uid" => "alexwibowo", // update me
+        "PWD" => "08Maret2017" // update me
+    ); 
+    $conn = sqlsrv_connect($serverName, $connectionOptions);  
+  
+    if ($conn === false)  
+    {  
+        die(print_r(sqlsrv_errors() , true));  
+    }  
  
     $id = null;
     if ( !empty($_GET['id'])) {
@@ -47,26 +58,22 @@
          
         // update data
         if ($valid) {
-            $pdo = Database::connect();
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "UPDATE permainan  set nama = ?, genre = ?, negara =?, produser =? WHERE id = ?";
-            $q = $pdo->prepare($sql);
-            $q->execute(array($nama,$genre,$negara,$produser,$id));
-            Database::disconnect();
+            $insertSql = "INSERT INTO game (nama,genre,negara,produser) VALUES (?,?,?,?)";  
+            $params = array($nama,$genre,$negara,$produser,$id);  
+            $stmt = sqlsrv_query($conn, $insertSql, $params);  
+            $conn = null;
             header("Location: index.php");
         }
     } else {
-        $pdo = Database::connect();
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM permainan where id = ?";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($id));
-        $data = $q->fetch(PDO::FETCH_ASSOC);
+        $sql = "SELECT * FROM game where id = ?";
+        $params = array($id);  
+        $getResults = sqlsrv_query($conn, $sql, $params); 
+        $data = sqlsrv_fetch_array($getResults);
+        $conn = null;  
         $nama = $data['nama'];
         $genre = $data['genre'];
         $negara = $data['negara'];
         $produser = $data['produser'];
-        Database::disconnect();
     }
 ?>
 <head>
