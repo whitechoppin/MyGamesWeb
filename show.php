@@ -27,7 +27,7 @@
                         die(print_r(sqlsrv_errors() , true));  
                     }  
                     
-                    $sql = "SELECT * FROM permainan where id = ?";
+                    $sql = "SELECT * FROM game where id = ?";
                     $params = array($nama,$genre,$negara,$produser));  
                     $getResults= sqlsrv_query($conn, $sql, $params); 
                     if ($getResults)
