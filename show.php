@@ -1,24 +1,4 @@
-<?php
-    require 'database.php';
-    $id = null;
-    if ( !empty($_GET['id'])) {
-        $id = $_REQUEST['id'];
-    }
-     
-    if ( null==$id ) {
-        header("Location: index.php");
-    } else {
-        $pdo = Database::connect();
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM permainan where id = ?";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($id));
-        $data = $q->fetch(PDO::FETCH_ASSOC);
-        Database::disconnect();
-    }
-?>
- 
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -33,7 +13,29 @@
                     <div class="row">
                         <h3>Lihat Data Permainan</h3>
                     </div>
-                     
+
+
+                    <?php
+                    $serverName = "tcp:mygamesweb.database.windows.net,1433";
+                    $connectionOptions = array(
+                        "Database" => "permainan", // update me
+                        "Uid" => "alexwibowo", // update me
+                        "PWD" => "08Maret2017" // update me
+                    ); 
+                    $conn = sqlsrv_connect($serverName, $connectionOptions);  
+                    
+                    if ($conn === false)  
+                    {  
+                        die(print_r(sqlsrv_errors() , true));  
+                    }  
+                    
+                    $sql = "SELECT * FROM permainan where id = ?";
+                    $params = array($nama,$genre,$negara,$produser));  
+                    $data = sqlsrv_query($conn, $sql, $params); 
+                    $conn = null;  
+                    ?>
+
+
                     <div class="form-horizontal" >
                         <div class="control-group">
                             <label class="control-label">Nama</label>
