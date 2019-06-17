@@ -25,10 +25,21 @@
                     </thead>
                     <tbody>
                     <?php
-                    include 'database.php';
-                    $pdo = Database::connect();
+                    $serverName = "tcp:mygamesweb.database.windows.net,1433";
+                    $connectionOptions = array(
+                        "Database" => "permainan", // update me
+                        "Uid" => "alexwibowo", // update me
+                        "PWD" => "08Maret2017" // update me
+                    ); 
+                    $conn = sqlsrv_connect($serverName, $connectionOptions);  
+                    
+                    if ($conn === false)  
+                    {  
+                        die(print_r(sqlsrv_errors() , true));  
+                    }  
+                    
                     $sql = 'SELECT * FROM game ORDER BY id ASC';
-                    $getResults= sqlsrv_query($pdo, $tsql);
+                    $getResults= sqlsrv_query($conn, $sql);
                     if ($getResults == FALSE)
                         die(FormatErrors(sqlsrv_errors()));
                     while ($row = sqlsrv_fetch_array($getResults)) {
@@ -42,7 +53,6 @@
                                 echo '</td>';
                                 echo '</tr>';
                     }
-                    Database::disconnect();
                     ?>
                     </tbody>
             </table>
