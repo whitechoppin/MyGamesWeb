@@ -45,18 +45,13 @@
         die(print_r(sqlsrv_errors() , true));  
     } 
     
-    $id = null;
-    if ( !empty($_GET['id'])) {
-        $id = $_REQUEST['id'];
-    }
- 
     if (isset($_GET['action']))  
     {  
         if ($_GET['action'] == 'delete')  
         {  
             $sql = "DELETE FROM game WHERE id = ?";
             $params = array($id);  
-            $stmt = sqlsrv_query($conn, $sql, $params);  
+            $stmt = sqlsrv_query($conn, $sql, $params);
             if ($stmt)  
             {  
                 /*Handle the case of a duplicte e-mail address.*/  
