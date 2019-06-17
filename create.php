@@ -3,9 +3,21 @@
 <html lang="en">
 <?php
      
-    require 'database.php';
+     $serverName = "tcp:mygamesweb.database.windows.net,1433";
+     $connectionOptions = array(
+         "Database" => "permainan", // update me
+         "Uid" => "alexwibowo", // update me
+         "PWD" => "08Maret2017" // update me
+     ); 
+     $conn = sqlsrv_connect($serverName, $connectionOptions);  
+     
+     if ($conn === false)  
+     {  
+         die(print_r(sqlsrv_errors() , true));  
+     } 
  
-    if ( !empty($_POST)) {
+    if ( !empty($_POST)) 
+    {
         $namaError = null;
         $genreError = null;
         $negaraError = null;
@@ -39,13 +51,22 @@
         }
          
         // isi data
-        if ($valid) {
-            $pdo = Database::connect();
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO permainan (nama,genre,negara,produser) values(?, ?, ?, ?)";
-            $q = $pdo->prepare($sql);
-            $q->execute(array($nama,$genre,$negara,$produser));
-            Database::disconnect();
+        if ($valid) 
+        {
+            $sql = "INSERT INTO game (nama,genre,negara,produser) VALUES (?, ?, ? ,?)";  
+            $params = array($nama,$genre,$negara,$produser));  
+            $stmt = sqlsrv_query($conn, $sql, $params);  
+            if ($stmt)  
+            {  
+                /*Handle the case of a duplicte e-mail address.*/  
+                echo "Registration complete.</br>";  
+                $rowsAffected = sqlsrv_rows_affected($stmt);
+                if ($stmt == FALSE or $rowsAffected == FALSE)
+                    die(FormatErrors(sqlsrv_errors()));
+                echo ($rowsAffected. " row(s) inserted: " . PHP_EOL);
+    
+                sqlsrv_free_stmt($stmt);
+            }  
             header("Location: index.php");
         }
     }
