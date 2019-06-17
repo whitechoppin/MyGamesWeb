@@ -38,7 +38,10 @@
                 <input type="text" name="produser" id="produser"/>
             </div>
         </div>
-        <input type="submit" name="submit" value="Submit" />  
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">Create</button>
+            <a class="btn" href="index.php">Back</a>
+        </div>
     </form> 
 </div>
  
