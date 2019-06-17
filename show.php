@@ -33,24 +33,25 @@
                     
                     $sql = "SELECT * FROM game where id = ?";
                     $params = array($id);  
-                    $getResults= sqlsrv_query($conn, $sql, $params); 
-                    if ($getResults)
-                    {
-                        while ($row = sqlsrv_fetch_array($getResults)) {
-                            echo '<tr>';
-                            echo '<td>'. $row['id'] . '</td>';
-                            echo '<td><a class="" href="show.php?id='.$row['id'].'">'. $row['nama'] . '</a></td>';
-                            echo '<td width=250>';
-                            echo '<a class="btn btn-success" href="update.php?id='.$row['id'].'">Update</a>';
-                            echo ' ';
-                            echo '<a class="btn btn-danger" href="delete.php?id='.$row['id'].'">Delete</a>';
-                            echo '</td>';
-                            echo '</tr>';
-                        }
-                    }
+                    $getResults = sqlsrv_query($conn, $sql, $params); 
+                    $data = sqlsrv_fetch_array($getResults);
+                    // if ($getResults)
+                    // {
+                    //     while ($row = sqlsrv_fetch_array($getResults)) {
+                    //         echo '<tr>';
+                    //         echo '<td>'. $row['id'] . '</td>';
+                    //         echo '<td><a class="" href="show.php?id='.$row['id'].'">'. $row['nama'] . '</a></td>';
+                    //         echo '<td width=250>';
+                    //         echo '<a class="btn btn-success" href="update.php?id='.$row['id'].'">Update</a>';
+                    //         echo ' ';
+                    //         echo '<a class="btn btn-danger" href="delete.php?id='.$row['id'].'">Delete</a>';
+                    //         echo '</td>';
+                    //         echo '</tr>';
+                    //     }
+                    // }
                     $conn = null;  
                     ?>
-                    <!-- <div class="form-horizontal" >
+                    <div class="form-horizontal" >
                         <div class="control-group">
                             <label class="control-label">Nama</label>
                             <div class="controls">
@@ -85,9 +86,7 @@
                         </div>
                         <div class="form-actions">
                             <a class="btn" href="index.php">Back</a>
-                        </div> -->
-                     
-                      
+                        </div>
                     </div>
                 </div>
                  
