@@ -1,27 +1,3 @@
-<?php
-    require 'database.php';
-    $id = 0;
-     
-    if ( !empty($_GET['id'])) {
-        $id = $_REQUEST['id'];
-    }
-     
-    if ( !empty($_POST)) {
-        // keep track post values
-        $id = $_POST['id'];
-         
-        // delete data
-        $pdo = Database::connect();
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "DELETE FROM permainan  WHERE id = ?";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($id));
-        Database::disconnect();
-        header("Location: index.php");
-         
-    }
-?>
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +14,7 @@
                         <h3>Delete a Customer</h3>
                     </div>
                      
-                    <form class="form-horizontal" action="delete.php" method="post">
+                    <form class="form-horizontal" action="?action=delete" method="post">
                       <input type="hidden" name="id" value="<?php echo $id;?>"/>
                       <p class="alert alert-error">Are you sure to delete ?</p>
                       <div class="form-actions">
@@ -49,5 +25,39 @@
                 </div>
                  
     </div> <!-- /container -->
-  </body>
+</body>
+<?php
+    $serverName = "tcp:mygamesweb.database.windows.net,1433";
+    $connectionOptions = array(
+        "Database" => "permainan", // update me
+        "Uid" => "alexwibowo", // update me
+        "PWD" => "08Maret2017" // update me
+    ); 
+    $conn = sqlsrv_connect($serverName, $connectionOptions);  
+     
+    if ($conn === false)  
+    {  
+        die(print_r(sqlsrv_errors() , true));  
+    } 
+ 
+    if (isset($_GET['action']))  
+    {  
+        if ($_GET['action'] == 'delete')  
+        {  
+            $sql = "DELETE FROM permainan  WHERE id = ?";
+            $params = array($id);  
+            $stmt = sqlsrv_query($conn, $sql, $params);  
+            if ($stmt)  
+            {  
+                /*Handle the case of a duplicte e-mail address.*/  
+                echo "Delete Data complete.</br>";  
+                $rowsAffected = sqlsrv_rows_affected($stmt);
+                echo ($rowsAffected. " row(s) Deleted " . PHP_EOL);
+    
+                sqlsrv_free_stmt($stmt);
+            }  
+            header("Location: index.php");
+        }
+    }
+?>
 </html>
