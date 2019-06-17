@@ -68,7 +68,7 @@
                         <h3>Create a Customer</h3>
                     </div>
              
-                    <form class="form-horizontal" action="create.php" method="post">
+                    <form class="form-horizontal" action="creates.php" method="post">
                         <div class="control-group <?php echo !empty($namaError)?'error':'';?>">
                             <label class="control-label">Nama</label>
                             <div class="controls">
