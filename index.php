@@ -27,8 +27,11 @@
                     <?php
                     include 'database.php';
                     $pdo = Database::connect();
-                    $sql = 'SELECT * FROM permainan ORDER BY id ASC';
-                    foreach ($pdo->query($sql) as $row) {
+                    $sql = 'SELECT * FROM game ORDER BY id ASC';
+                    $getResults= sqlsrv_query($pdo, $tsql);
+                    if ($getResults == FALSE)
+                        die(FormatErrors(sqlsrv_errors()));
+                    while ($row = sqlsrv_fetch_array($getResults)) {
                                 echo '<tr>';
                                 echo '<td>'. $row['id'] . '</td>';
                                 echo '<td><a class="" href="show.php?id='.$row['id'].'">'. $row['nama'] . '</a></td>';
