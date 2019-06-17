@@ -75,6 +75,7 @@ if (isset($_GET['action']))
 
             }
             sqlsrv_free_stmt($getResults);
+            header("Location: index.php");
       
             }  
         }  
