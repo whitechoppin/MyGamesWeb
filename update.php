@@ -58,7 +58,7 @@
          
         // update data
         if ($valid) {
-            $insertSql = "UPDATE permainan  set nama = ?, genre = ?, negara =?, produser =? WHERE id = ?";
+            $insertSql = "UPDATE game set nama = ?, genre = ?, negara =?, produser =? WHERE id = ?";
             $params = array($nama,$genre,$negara,$produser,$id);  
             $stmt = sqlsrv_query($conn, $insertSql, $params);  
             $conn = null;
