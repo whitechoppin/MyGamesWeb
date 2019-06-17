@@ -13,7 +13,12 @@
                     <div class="row">
                         <h3>Delete a Customer</h3>
                     </div>
-                     
+                    <?php
+                        $id = null;
+                        if ( !empty($_GET['id'])) {
+                            $id = $_REQUEST['id'];
+                        }
+                    ?>
                     <form class="form-horizontal" action="?action=delete" method="post">
                       <input type="hidden" name="id" value="<?php echo $id;?>"/>
                       <p class="alert alert-error">Are you sure to delete ?</p>
