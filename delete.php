@@ -54,7 +54,7 @@
     {  
         if ($_GET['action'] == 'delete')  
         {  
-            $sql = "DELETE FROM permainan  WHERE id = ?";
+            $sql = "DELETE FROM game  WHERE id = ?";
             $params = array($id);  
             $stmt = sqlsrv_query($conn, $sql, $params);  
             if ($stmt)  
