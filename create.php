@@ -10,7 +10,7 @@
 <div class="container">
     <div class="span10 offset1">
         <div class="row">
-            <h3>Create a Customer</h3>
+            <h3>Create a game</h3>
         </div>
     </div>
     <form class="form-horizontal"method="post" action="?action=add" enctype="multipart/form-data" >  
