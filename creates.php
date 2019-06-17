@@ -46,7 +46,7 @@
          
         // isi data
         if ($valid) {
-            $insertSql = "INSERT INTO permainan (nama,genre,negara,produser) values(?, ?, ?, ?)";
+            $insertSql = "INSERT INTO game (nama,genre,negara,produser) values(?, ?, ?, ?)";
             $params = array($nama,$genre,$negara,$produser);  
             $stmt = sqlsrv_query($conn, $insertSql, $params);  
             $conn = null;
